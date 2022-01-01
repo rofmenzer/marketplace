@@ -1,0 +1,15 @@
+project/target
+target
+terraform/.terraform
+terraform/id_rsa_debug.key
+
+
+.idea
+
+idea/
+
+.metals
+.vscode
+/.idea/
+.idea/modules/poca-2020-build.iml
+.idea/modules/poca-2020.iml
