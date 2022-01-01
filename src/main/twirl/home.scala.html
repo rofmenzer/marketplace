@@ -1,0 +1,82 @@
+@()
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                .header {
+                    background: radial-gradient(#ffffff, #ffd6d6);
+                }
+
+
+                .container {
+                    max-width: 1300px;
+                    margin: auto;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                }
+                .navbar {
+                    display: flex;
+                    align-items: center;
+                    padding: 20px;
+                }
+                .menu-icon {
+                    width: 28px;
+                    margin-left: 20px;
+                    display: none;
+                }
+                nav {
+                    flex: 1;
+                    text-align: right;
+                }
+
+                nav ul {
+                    display: inline-block;
+                    list-style-type: none;
+                }
+
+                nav ul li {
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: #555555;
+                }
+        </style>
+        <title>BookShop</title>
+    </head>
+
+    <body>
+            <!--Header Section-->
+        <div class="header">
+            <div class="container">
+                <div class="navbar">
+                    <nav>
+                        <ul >
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/user/books">User Books</a></li>
+                            <li><a href="/admin/books">Admin Books</a></li>
+                            <li><a href="/admin/orders">Admin Orders</a></li>
+                            <li><a href="/user/orders/0">User's Orders</a></li>
+                            <li><a href="/admin/books/add">Add product</a></li>
+                            <li><a href="/users">Users</a></li>
+                            <li><a href="/signup">Signup</a></li>
+                            <li><a href="/login">Login</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        </body>
+        </html>

@@ -1,0 +1,128 @@
+@(book: poca.Book)
+
+<!doctype html>
+<html>
+    <head>
+        <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                .header {
+                    background: radial-gradient(#ffffff, #ffd6d6);
+                }
+
+
+                .container {
+                    max-width: 1300px;
+                    margin: auto;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                }
+                .navbar {
+                    display: flex;
+                    align-items: center;
+                    padding: 20px;
+                }
+                .menu-icon {
+                    width: 28px;
+                    margin-left: 20px;
+                    display: none;
+                }
+                nav {
+                    flex: 1;
+                    text-align: right;
+                }
+
+                nav ul {
+                    display: inline-block;
+                    list-style-type: none;
+                }
+
+                nav ul li {
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: #555555;
+                }
+        </style>
+
+        <style>
+            .btn-order {
+                    outline: none;
+                    padding: 10px;
+                    border-radius: 15px;
+                    border: none;
+                    color: black;
+                    font-size: large;
+                    cursor: pointer;
+                    text-align: center;
+                    background-color: #10BD32;
+                    width: 100px;
+                    text-align: center;
+                }
+        </style>
+    </head>
+    <body>
+            <!--Header Section-->
+        <div class="header">
+            <div class="container">
+                <div class="navbar">
+                    <nav>
+                        <ul >
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/user/books">User Books</a></li>
+                            <li><a href="/admin/books">Admin Books</a></li>
+                            <li><a href="/admin/orders">Admin Orders</a></li>
+                            <li><a href="/admin/books/add">Add product</a></li>
+                            <li><a href="/users">Users</a></li>
+                            <li><a href="/signup">Signup</a></li>
+                            <li><a href="/login">Login</a></li>
+
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+
+    <h1>Details of books</h1>
+<strong>ID: </strong>@book.id <br />
+<strong>Title: </strong>@book.title <br />
+<strong>Author: </strong>@book.author <br />
+<strong>Year: </strong>@book.year <br />
+<strong>Synopsis: </strong>@book.synopsis <br />
+<strong>ISBN: </strong>@book.isbn <br />
+<strong>Price: </strong>@book.price <br />
+<strong>Quantity: </strong>@book.quantity <br />
+<button id="buy" class="btn-order" onclick="order('@book.id')">Buy</button>
+
+    </body>
+
+    <script>
+
+        function order(bookId) {
+            var http = new XMLHttpRequest();
+            var url = '/user/books/order';
+            var params = 'bookId=' + bookId + '&quantity=1';
+            http.open('POST', url, true);
+
+            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            http.onreadystatechange = function() {//Call a function when the state changes.
+                if(http.readyState == 4 && http.status == 200) {
+                    alert(http.responseText);
+                }
+            }
+            http.send(params);
+        }
+        </script>
+
+</html>

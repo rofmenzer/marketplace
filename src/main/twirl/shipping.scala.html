@@ -1,0 +1,243 @@
+@(order: poca.Order, shippings: Seq[poca.Shipping])
+
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+        <style>
+                * {
+                    box-sizing: border-box;
+                    margin: 0;
+                }
+
+                html {
+                    background-color: #330000;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 400'%3E%3Cdefs%3E%3CradialGradient id='a' cx='396' cy='281' r='514' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23D18'/%3E%3Cstop offset='1' stop-color='%23330000'/%3E%3C/radialGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='400' y1='148' x2='400' y2='333'%3E%3Cstop offset='0' stop-color='%23FA3' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23FA3' stop-opacity='0.5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23a)' width='800' height='400'/%3E%3Cg fill-opacity='0.4'%3E%3Ccircle fill='url(%23b)' cx='267.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='532.5' cy='61' r='300'/%3E%3Ccircle fill='url(%23b)' cx='400' cy='30' r='300'/%3E%3C/g%3E%3C/svg%3E");
+                    background-attachment: fixed;
+                    background-size: cover;
+                }
+
+                .main-container {
+                    font-family: Arial, Helvetica, sans-serif;
+                    display: flex;
+                    margin: auto;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                }
+
+                h1 {
+                    margin-top: 50px;
+                    margin-bottom: 50px;
+                    font-size: 5em;
+                    text-align: center;
+                }
+
+                input {
+                    width: 300px;
+                    height: 40px;
+                    outline: none;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    border: 1px solid gray;
+                    font-size: large;
+                    background-color: white;
+                    border-radius: 20px;
+                    padding: 20px 7%;
+
+                }
+
+                textarea {
+                    width: 400px;
+                    height: 150px;
+                    outline: none;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    border: 1px solid gray;
+                    font-size: large;
+                    background-color: white;
+                    border-radius: 20px;
+                    padding: 20px 7%;
+                }
+
+                .btn {
+                    outline: none;
+                    padding: 20px 7%;
+                    border-radius: 15px;
+                    border: none;
+                    color: black;
+                    font-size: large;
+                    cursor: pointer;
+                    text-align: center;
+                    background-color: green;
+                    width: 150px;
+                    align-items: center;
+                    margin-left: 150px;
+                }
+
+                label {
+                    font-size: larger;
+
+                }
+
+                .lb {
+                    vertical-align: top;
+                }
+
+
+
+
+
+
+
+        </style>
+        <style>
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                .header {
+                    background: radial-gradient(#ffffff, #ffd6d6);
+                }
+
+
+                .container {
+                    max-width: 1300px;
+                    margin: auto;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                }
+
+                .navbar {
+                    display: flex;
+                    align-items: center;
+                    padding: 20px;
+                }
+
+                .menu-icon {
+                    width: 28px;
+                    margin-left: 20px;
+                    display: none;
+                }
+
+                nav {
+                    flex: 1;
+                    text-align: right;
+                }
+
+                nav ul {
+                    display: inline-block;
+                    list-style-type: none;
+                }
+
+                nav ul li {
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: #555555;
+                }
+        </style>
+
+    </head>
+    <body>
+            <!--Header Section-->
+        <div class="header">
+            <div class="container">
+                <div class="navbar">
+                    <nav>
+                        <ul >
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/user/books">User Books</a></li>
+                            <li><a href="/admin/books">Admin Books</a></li>
+                            <li><a href="/admin/orders">Admin Orders</a></li>
+                            <li><a href="/user/orders/0">User's Orders</a></li>
+                            <li><a href="/admin/books/add">Add product</a></li>
+                            <li><a href="/users">Users</a></li>
+                            <li><a href="/signup">Signup</a></li>
+                            <li><a href="/login">Login</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h1>Shipping form</h1>
+        </div>
+
+        <div class="main-container ">
+
+            <div>
+                <h3>Old Addresses</h3>
+                <select id="addressSelect" onchange="onAddressChange()">
+                    <option value="">--Choose an address--</option>
+                    @for(shipping <- shippings) {
+                        <option value="'@shipping'">@shipping.address <br />
+                            @shipping.zipcode @shipping.city <br />
+                            @shipping.phone <br />
+                        </option>
+                    }
+                    </select>
+
+            </div>
+
+            <form action=/user/books/order/shipping method="post">
+                <table>
+                    <tr>
+                        <td><label for="address"><strong> Adresse : </strong></label></td>
+                        <td><input id="address" type="text" name="address" placeholder="user's address"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email"><strong> Email : </strong></label></td>
+                        <td><input type="email" id="email" name="email" placeholder="user's email" required/></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="city"><strong>City:</strong></label></td>
+                        <td><input type="text" name="city" id="city" placeholder="user's city" required/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="zip"><strong>Zip:</strong></label></td>
+                        <td><input type="text" name="zip" id="zip" placeholder="user's zip code" required/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="phonenumber"><strong>Phone number:</strong></label></td>
+                        <td><input type="text" name="phonenumber" id="phonenumber" placeholder="user's phonenumber" required/></td>
+                    </tr>
+                    <tr>
+                        <td><input type="hidden" type="text" name="orderId" id="orderId"/>@order.orderId</td>
+                    </tr>
+                </table>
+                <div>
+                    <button class="btn" onclick="nextStep('@order.orderId')"> Validate </button>
+                </div>
+            </form>
+        </div>
+    </body>
+
+    <script>
+            const nextStep = (bookId) => location.href = '/user/orders/payment/' + bookId;
+
+            function onAddressChange() {
+                var x = document.getElementById("addressSelect").value;
+                values = x.split(',')
+                fillForm(values)
+            }
+
+            function fillForm(values) {
+                document.getElementById("address").value = values[2];
+                document.getElementById("email").value = values[4];
+                document.getElementById("city").value = values[5]
+                document.getElementById("zip").value = values[3];
+                document.getElementById("phonenumber").value = values[6];
+
+            }
+
+    </script>
+
+</html>
