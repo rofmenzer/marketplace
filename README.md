@@ -1,4 +1,4 @@
-The original project was in gitlab-paris (private repo).
+# The original project was in gitlab-paris (private repo), for this reason the pipLine is KO
 
 # POCA 2020
 
