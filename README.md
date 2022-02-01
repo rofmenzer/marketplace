@@ -1,3 +1,5 @@
+The original project was in gitlab-paris (private repo).
+
 # POCA 2020
 
 Our product is a marketplace connecting buyers to sellers. Similar products are: Amazon.com, Rakuten, Cdiscount.com, Veepee...
